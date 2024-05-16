@@ -7,6 +7,10 @@ module.exports = {
     "./app/**/*.{ts,tsx}",
     "./src/**/*.{ts,tsx}"
   ],
+  plugins: [
+      // ...
+      require('@tailwindcss/aspect-ratio'),
+    ],
   prefix: "",
   theme: {
     container: {
