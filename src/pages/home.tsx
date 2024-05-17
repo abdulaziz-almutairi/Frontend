@@ -13,11 +13,10 @@ import {
 } from "@/components/ui/card"
 import { Product } from "@/types"
 import { GlobalContext } from "@/App"
-import React from "react"
-import Navbar from "@/components/ui/navbar"
+import { Navbar } from "@/components/ui/navbar"
 
 export function Home() {
-  // const queryClint = useQueryClient()
+  const queryClint = useQueryClient()
   const [product, setProduct] = useState({
     productId: ""
   })
@@ -57,12 +56,13 @@ export function Home() {
   return (
     <>
       <Navbar />
-      <h1 className="text-2xl uppercase mb-10">Products</h1>
-      <h3>Cart : ({state.cart.length})</h3>
-      <section className="grid justify-center grid-cols-4">
+      {/* <h1 className="text-2xl uppercase mb-10">Products</h1>
+      <h3>Cart : ({state.cart.length})</h3> */}
+      <section className="grid justify-center grid-cols-4 mt-8 flex">
         {data?.map((product) => (
           <Card key={product.id} className="w-[350px]">
             <CardHeader>
+              <img className="mb-5" alt={product.name} src={product.image} />
               <CardTitle>{product.name}</CardTitle>
               <CardDescription>Some Description here</CardDescription>
             </CardHeader>
