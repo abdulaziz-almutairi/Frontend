@@ -61,7 +61,7 @@ export function Home() {
     <>
       <Navbar />
       <div>
-        <form onSubmit={handleSearch} className="w-full md:w-1/2 mx-auto mb-10 flex gap-2">
+        <form onSubmit={handleSearch} className="w-full md:w-1/2 mx-auto mb-10 flex gap-2 mt-4">
           <Input
             type="search"
             placeholder="Search for a product"

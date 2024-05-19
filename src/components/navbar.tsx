@@ -1,15 +1,22 @@
 import * as React from "react"
 import { Link } from "react-router-dom"
+
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList
 } from "@/components/ui/navigation-menu"
-
 import { Cart } from "./cart"
+import { GlobalContext } from "@/App"
 
 export function Navbar() {
+  const context = React.useContext(GlobalContext)
+  if (!context) throw Error("Context is missing")
+  const { state } = context
+
+  console.log(state)
+
   return (
     <>
       <div className="flex justify-between	">
@@ -19,6 +26,16 @@ export function Navbar() {
             <NavigationMenuItem>
               <Link to="/">
                 <NavigationMenuLink>Home</NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Link to="/account#login">
+                <NavigationMenuLink>Login</NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+            <NavigationMenuItem>
+              <Link to="/account#signup">
+                <NavigationMenuLink>Signup</NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>

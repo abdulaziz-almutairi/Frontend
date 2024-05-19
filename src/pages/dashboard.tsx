@@ -5,7 +5,7 @@ import { Form } from "react-router-dom"
 import api from "@/api"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Category, Product } from "@/types"
+import { Category, Product, User } from "@/types"
 import {
   Table,
   TableBody,
@@ -62,7 +62,12 @@ export function Dashboard() {
   }
   const postProduct = async () => {
     try {
-      const res = await api.post("/products", product)
+      const token = localStorage.getItem("token")
+      const res = await api.post("/products", product, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
       return res.data
     } catch (error) {
       console.error(error)
@@ -92,6 +97,20 @@ export function Dashboard() {
       return Promise.reject(new Error("Something went wrong"))
     }
   }
+  const getUsers = async () => {
+    try {
+      const token = localStorage.getItem("token")
+      const res = await api.get("/users", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      return res.data
+    } catch (error) {
+      console.error(error)
+      return Promise.reject(new Error("Something went wrong"))
+    }
+  }
   // Queries
   const { data: products, error } = useQuery<Product[]>({
     queryKey: ["products"],
@@ -101,6 +120,11 @@ export function Dashboard() {
   const { data: categories, error: catError } = useQuery<Category[]>({
     queryKey: ["categories"],
     queryFn: getCategories
+  })
+
+  const { data: users, error: userError } = useQuery<User[]>({
+    queryKey: ["users"],
+    queryFn: getUsers
   })
 
   const productWithCat = products?.map((product) => {
@@ -161,13 +185,6 @@ export function Dashboard() {
             placeholder="Image"
             onChange={handleChange}
           />
-          {/* <Input
-            className="mt-4"
-            name="categoryId"
-            type="text"
-            placeholder="Category"
-            onChange={handleChange}
-          /> */}
 
           <select
             className="mt-4 w-1/3 mx-auto items-center scroll-m-40 "
