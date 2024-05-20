@@ -6,28 +6,28 @@ Tech Stack: React, TypeScript. Styling: Tailwind, MUI, or CSS/SASS
 
 **Pages to Create:**
 
-1. Home page (list all the products)
-2. Product page (contain the details of a product)
-3. Dashboard page
+- [x] 1. Home page (list all the products)
+- [x] 2. Product page (contain the details of a product)
+- [x] 3. Dashboard page
 
 **Functionalities for a Visitor:**
 
-- Get list of products
-- Filter products by categories or price
-- Search products by name
-- Add products to a cart
-- Remove products from a cart
+- [x] Get list of products
+- [x] Filter products by categories or price
+- [x] Search products by name
+- [x] Add products to a cart
+- [x] Remove products from a cart
 
 **Functionalities for an Admin:**
 
-- Add a new product, update info of a product, remove a product
+- [x] Add a new product, update info of a product, remove a product
 
 ### Level 2: Additional Requirements
 
 **Authentication:**
 
-- Implement register and login functionality via email and password
-- Protect the routes based on login and admin status
+- [x] Implement register and login functionality via email and password
+- [x] Protect the routes based on login and admin status
 
 **Functionalities for an Admin:**
 
@@ -37,7 +37,7 @@ Tech Stack: React, TypeScript. Styling: Tailwind, MUI, or CSS/SASS
 
 **Form Validation:**
 
-- Implement form validation.
+- [x] Implement form validation.
 
 ### Level 3: Bonus Requirement (Optional)
 
