@@ -1,5 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom"
-import { createContext, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 
 import "./App.css"
 import { Home } from "./pages/home"
@@ -50,6 +50,18 @@ function App() {
     cart: [],
     user: null
   })
+
+  useEffect(() => {
+    const user = localStorage.getItem("user")
+    if (user) {
+      const decodedUser = JSON.parse(user)
+
+      setState({
+        ...state,
+        user: decodedUser
+      })
+    }
+  }, [])
 
   const handleAddToCart = (product: Product) => {
     setState({

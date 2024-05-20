@@ -2,6 +2,10 @@ import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { ChangeEvent, FormEvent, useState } from "react"
 import { Form } from "react-router-dom"
 
+import ProductService from "../api/products"
+import CategoryService from "../api/categories"
+import UsersService from "../api/users"
+
 import api from "@/api"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -47,84 +51,31 @@ export function Dashboard() {
     })
   }
 
-  const deleteProduct = async (id: string) => {
-    try {
-      const res = await api.delete(`/products/${id}`)
-      return res.data
-    } catch (error) {
-      console.error(error)
-      return Promise.reject(new Error("Something went wrong"))
-    }
-  }
   const handleDeleteProduct = async (id: string) => {
-    await deleteProduct(id)
+    await ProductService.deleteOne(id)
     queryClint.invalidateQueries({ queryKey: ["products"] })
   }
-  const postProduct = async () => {
-    try {
-      const token = localStorage.getItem("token")
-      const res = await api.post("/products", product, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      return res.data
-    } catch (error) {
-      console.error(error)
-      return Promise.reject(new Error("Something went wrong"))
-    }
-  }
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    await postProduct()
+    await ProductService.createOne(product)
     queryClint.invalidateQueries({ queryKey: ["products"] })
   }
-  const getCategories = async () => {
-    try {
-      const res = await api.get("/categorys")
-      return res.data
-    } catch (error) {
-      console.error(error)
-      return Promise.reject(new Error("Something went wrong"))
-    }
-  }
-  const getProducts = async () => {
-    try {
-      const res = await api.get("/products")
-      return res.data
-    } catch (error) {
-      console.error(error)
-      return Promise.reject(new Error("Something went wrong"))
-    }
-  }
-  const getUsers = async () => {
-    try {
-      const token = localStorage.getItem("token")
-      const res = await api.get("/users", {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      return res.data
-    } catch (error) {
-      console.error(error)
-      return Promise.reject(new Error("Something went wrong"))
-    }
-  }
+
   // Queries
   const { data: products, error } = useQuery<Product[]>({
     queryKey: ["products"],
-    queryFn: getProducts
+    queryFn: ProductService.getAll
   })
 
   const { data: categories, error: catError } = useQuery<Category[]>({
     queryKey: ["categories"],
-    queryFn: getCategories
+    queryFn: CategoryService.getAll
   })
 
   const { data: users, error: userError } = useQuery<User[]>({
     queryKey: ["users"],
-    queryFn: getUsers
+    queryFn: UsersService.getAll
   })
 
   const productWithCat = products?.map((product) => {

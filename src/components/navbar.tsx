@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/navigation-menu"
 import { Cart } from "./cart"
 import { GlobalContext } from "@/App"
+import { ROLE } from "@/types"
 
 export function Navbar() {
   const context = React.useContext(GlobalContext)
@@ -28,21 +29,27 @@ export function Navbar() {
                 <NavigationMenuLink>Home</NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link to="/account#login">
-                <NavigationMenuLink>Login</NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link to="/account#signup">
-                <NavigationMenuLink>Signup</NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <Link to="/dashboard">
-                <NavigationMenuLink>Dashboard</NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
+            {!state.user && (
+              <NavigationMenuItem>
+                <Link to="/account#login">
+                  <NavigationMenuLink>Login</NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+            )}
+            {!state.user && (
+              <NavigationMenuItem>
+                <Link to="/account#signup">
+                  <NavigationMenuLink>Signup</NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+            )}
+            {state.user?.role === ROLE.Admin && (
+              <NavigationMenuItem>
+                <Link to="/dashboard">
+                  <NavigationMenuLink>Dashboard</NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+            )}
             <NavigationMenuItem>
               <Link to="/about-us">
                 <NavigationMenuLink>About us</NavigationMenuLink>

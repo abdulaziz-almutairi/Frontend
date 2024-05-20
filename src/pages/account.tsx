@@ -78,9 +78,11 @@ export function Account() {
     const token = await handleSignin()
     // console.log("localStorage:", localStorage)
     if (token) {
-      localStorage.setItem("token", token)
       const decodedToken = jwt_decode(token)
       const user = reshapeUser(decodedToken)
+      localStorage.setItem("token", token)
+      localStorage.setItem("user", JSON.stringify(user))
+
       handleStoreUser(user)
       navigation("/")
     }
