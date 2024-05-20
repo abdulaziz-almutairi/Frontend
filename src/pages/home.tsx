@@ -16,11 +16,11 @@ import { Product } from "@/types"
 import { GlobalContext } from "@/App"
 import { Navbar } from "@/components/navbar"
 import { Input } from "@/components/ui/input"
+import { Hero } from "@/components/hero"
 
 export function Home() {
   const [searchParams, setSearchParams] = useSearchParams()
   const defaultSearch = searchParams.get("searchBy") || ""
-  console.log(searchParams.get("searchBy"))
 
   const [searchBy, setSearchBy] = useState(defaultSearch)
   const queryClint = useQueryClient()
@@ -71,17 +71,18 @@ export function Home() {
           <Button type="submit">Search</Button>
         </form>
       </div>
+      <Hero />
       <section className="grid justify-center grid-cols-4 mt-8 mb-4">
         {data?.length === 0 && <p>Not Found</p>}
         {data?.map((product) => (
-          <Card key={product.id} className="w-[350px]">
+          <Card key={product.id} className="w-[350px] mt-4">
             <CardHeader>
               <img className="mb-5" alt={product.name} src={product.image} />
               <CardTitle>{product.name}</CardTitle>
-              <CardDescription>Some Description here</CardDescription>
+              <CardDescription>{product.description}</CardDescription>
             </CardHeader>
-            <CardContent>
-              <p>Card Content Here</p>
+            <CardContent className="w-full font-bold">
+              <p>Price: ${product.price}</p>
             </CardContent>
             <CardFooter className="flex justify-between">
               <Button onClick={() => handleAddToCart(product)}>Add to cart</Button>

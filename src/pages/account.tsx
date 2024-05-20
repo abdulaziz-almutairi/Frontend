@@ -16,7 +16,6 @@ export function Account() {
   const context = useContext(GlobalContext)
   if (!context) throw Error("Context is missing")
   const { handleStoreUser } = context
-  console.log("handleStoreUser:", handleStoreUser)
 
   const navigation = useNavigate()
   const [signup, setSingup] = useState({
@@ -29,7 +28,7 @@ export function Account() {
     email: "",
     password: ""
   })
-  // console.log("signup:", signup)
+
   const handleSignup = async () => {
     try {
       const res = await api.post(`/users/signup`, signup)
@@ -76,7 +75,7 @@ export function Account() {
   const handleSigninSubmit = async (e: FormEvent) => {
     e.preventDefault()
     const token = await handleSignin()
-    // console.log("localStorage:", localStorage)
+
     if (token) {
       const decodedToken = jwt_decode(token)
       const user = reshapeUser(decodedToken)

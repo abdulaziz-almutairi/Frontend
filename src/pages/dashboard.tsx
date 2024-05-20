@@ -6,7 +6,6 @@ import ProductService from "../api/products"
 import CategoryService from "../api/categories"
 import UsersService from "../api/users"
 
-import api from "@/api"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Category, Product, User } from "@/types"

@@ -16,8 +16,6 @@ export function Navbar() {
   if (!context) throw Error("Context is missing")
   const { state } = context
 
-  console.log(state)
-
   return (
     <>
       <div className="flex justify-between	">

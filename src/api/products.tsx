@@ -29,7 +29,12 @@ export default {
 
   deleteOne: async (id: string) => {
     try {
-      const res = await api.delete(`/products/${id}`)
+      const token = localStorage.getItem("token")
+      const res = await api.delete(`/products/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
       return res.data
     } catch (error) {
       console.error(error)
