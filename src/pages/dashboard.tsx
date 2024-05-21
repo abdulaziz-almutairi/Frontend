@@ -42,10 +42,23 @@ export function Dashboard() {
     image: "",
     categoryId: ""
   })
+
+  const [category, setCategories] = useState({
+    name: ""
+  })
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setProducts({
       ...product,
+      [name]: value
+    })
+  }
+
+  const handleAddCategoryChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+    setCategories({
+      ...category,
       [name]: value
     })
   }
@@ -94,9 +107,70 @@ export function Dashboard() {
       categoryId: e.target.value
     })
   }
+
+  const handlCategorySubmit = async (e: FormEvent) => {
+    e.preventDefault()
+    await CategoryService.CreateOne(category)
+    queryClint.invalidateQueries({ queryKey: ["categories"] })
+  }
   return (
     <>
       <Navbar />
+
+      <Table className="mt-8 ">
+        <TableCaption>Users</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Name</TableHead>
+            <TableHead>Email</TableHead>
+            <TableHead></TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {users?.map((user) => (
+            <TableRow key={user.id}>
+              <TableCell className="text-left">{user.firstName}</TableCell>
+              <TableCell className="text-left">{user.email}</TableCell>
+              <TableCell>
+                <AlertDialog>
+                  <AlertDialogTrigger>
+                    <Button variant="destructive">Delete</Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        This action cannot be undone. This will permanently delete
+                        <b> {user.firstName} </b>
+                        account and remove user data from servers.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction>Continue</AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+      <div>
+        <Form className="mt-20 w-1/3 mx-auto" onSubmit={handlCategorySubmit}>
+          <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">Add Category</h3>
+          <Input
+            className="mt-4"
+            name="name"
+            type="text"
+            placeholder="Category Name"
+            onChange={handleAddCategoryChange}
+          />
+          <Button type="submit" className="mt-4">
+            Add Category
+          </Button>
+        </Form>
+      </div>
       <div>
         <Form className="mt-20 w-1/3 mx-auto" onSubmit={handleSubmit}>
           <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">Add Product</h3>
@@ -160,9 +234,10 @@ export function Dashboard() {
         </Form>
       </div>
       <div>
-        <h1 className="scroll-m-20 text-4x1 my-10 font-semibold tracking-tight">Products</h1>
         <Table>
-          <TableCaption>A list of your recent invoices.</TableCaption>
+          <TableCaption className="scroll-m-20 text-4x1 my-10 font-semibold tracking-tight">
+            Products.
+          </TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead>Name</TableHead>
@@ -186,6 +261,9 @@ export function Dashboard() {
                 <TableCell className="text-left">{product.description}</TableCell>
                 <TableCell className="text-left">{product.categoryId}</TableCell>
                 <TableCell className="text-left">
+                  <EditDialog product={product} />
+                </TableCell>
+                <TableCell className="text-left">
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
                       <Button variant={"destructive"}>X</Button>
@@ -208,9 +286,6 @@ export function Dashboard() {
                       </AlertDialogFooter>
                     </AlertDialogContent>
                   </AlertDialog>
-                </TableCell>
-                <TableCell className="text-left">
-                  <EditDialog product={product} />
                 </TableCell>
               </TableRow>
             ))}
