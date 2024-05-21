@@ -18,7 +18,7 @@ export function Navbar() {
 
   return (
     <>
-      <div className="flex justify-between  bg-black bg-opacity-50">
+      <div className="flex justify-between">
         <h3>Logo</h3>
         <NavigationMenu>
           <NavigationMenuList className="flex gap-4">
