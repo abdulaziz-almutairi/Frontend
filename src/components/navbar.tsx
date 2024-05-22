@@ -18,43 +18,43 @@ export function Navbar() {
 
   return (
     <>
-      <div className="flex justify-between">
-        <h3>Logo</h3>
-        <NavigationMenu>
+      <div className="flex justify-center h-24 bg-gray-800">
+        <NavigationMenu className="flex w-full">
+          {/* <img src="https://dqov5rvavbmnl.cloudfront.net/images/logos/37/logo2-w.png?t=1700451423" /> */}
           <NavigationMenuList className="flex gap-4">
             <NavigationMenuItem>
               <Link to="/">
-                <NavigationMenuLink>Home</NavigationMenuLink>
+                <NavigationMenuLink className=" text-slate-50">Home</NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
             {!state.user && (
               <NavigationMenuItem>
                 <Link to="/account#login">
-                  <NavigationMenuLink>Login</NavigationMenuLink>
+                  <NavigationMenuLink className=" text-slate-50">Login</NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
             )}
             {!state.user && (
               <NavigationMenuItem>
                 <Link to="/account#signup">
-                  <NavigationMenuLink>Signup</NavigationMenuLink>
+                  <NavigationMenuLink className=" text-slate-50">Signup</NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
             )}
             {state.user?.role === ROLE.Admin && (
               <NavigationMenuItem>
                 <Link to="/dashboard">
-                  <NavigationMenuLink>Dashboard</NavigationMenuLink>
+                  <NavigationMenuLink className=" text-slate-50">Dashboard</NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
             )}
             <NavigationMenuItem>
               <Link to="/about-us">
-                <NavigationMenuLink>About us</NavigationMenuLink>
+                <NavigationMenuLink className=" text-slate-50">About us</NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuLink>
+              <NavigationMenuLink className=" text-slate-50">
                 <Cart />
               </NavigationMenuLink>
             </NavigationMenuItem>

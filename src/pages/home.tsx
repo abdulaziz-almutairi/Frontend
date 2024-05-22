@@ -67,8 +67,11 @@ export function Home() {
             placeholder="Search for a product"
             onChange={handleChange}
             value={searchBy}
+            className="rounded-full"
           />
-          <Button type="submit">Search</Button>
+          <Button type="submit" className="rounded-full">
+            Search
+          </Button>
         </form>
       </div>
       <Hero />
@@ -85,8 +88,10 @@ export function Home() {
               <p>Price: ${product.price}</p>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <Button onClick={() => handleAddToCart(product)}>Add to cart</Button>
-              <Button variant="outline">
+              <Button className="rounded-full" onClick={() => handleAddToCart(product)}>
+                Add to cart
+              </Button>
+              <Button variant="outline" className="rounded-full">
                 <Link to={`/products/${product.id}`}>Details</Link>
               </Button>
             </CardFooter>

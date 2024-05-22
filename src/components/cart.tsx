@@ -14,12 +14,12 @@ export function Cart() {
       <Popover>
         <PopoverTrigger asChild>
           <div className="flex gap-2">
-            <ShoppingCart className="cursor-pointer hover:bg-slate-200" />
+            <ShoppingCart className="cursor-pointer" />
             <span>({state.cart.length})</span>
           </div>
         </PopoverTrigger>
 
-        <PopoverContent className="w-80 mt-4">
+        <PopoverContent className="w-80 mt-4 decoration-sky-900 bg-zinc-600">
           <div>
             {state.cart.length === 0 && <p>No Items</p>}
             {state.cart.map((product) => {
@@ -34,7 +34,7 @@ export function Cart() {
                   <span className="font-bold">{product.price}</span>
                   <Button
                     variant="destructive"
-                    className="p-4"
+                    className="rounded-full"
                     onClick={() => handleDeleteFromCart(product.id)}
                   >
                     X

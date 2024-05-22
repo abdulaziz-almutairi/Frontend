@@ -116,123 +116,138 @@ export function Dashboard() {
   return (
     <>
       <Navbar />
-
-      <Table className="mt-8 ">
-        <TableCaption>Users</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>Email</TableHead>
-            <TableHead></TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {users?.map((user) => (
-            <TableRow key={user.id}>
-              <TableCell className="text-left">{user.firstName}</TableCell>
-              <TableCell className="text-left">{user.email}</TableCell>
-              <TableCell>
-                <AlertDialog>
-                  <AlertDialogTrigger>
-                    <Button variant="destructive">Delete</Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                      <AlertDialogDescription>
-                        This action cannot be undone. This will permanently delete
-                        <b> {user.firstName} </b>
-                        account and remove user data from servers.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction>Continue</AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <div>
-        <Form className="mt-20 w-1/3 mx-auto" onSubmit={handlCategorySubmit}>
-          <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">Add Category</h3>
-          <Input
-            className="mt-4"
-            name="name"
-            type="text"
-            placeholder="Category Name"
-            onChange={handleAddCategoryChange}
-          />
-          <Button type="submit" className="mt-4">
-            Add Category
-          </Button>
-        </Form>
-      </div>
-      <div>
-        <Form className="mt-20 w-1/3 mx-auto" onSubmit={handleSubmit}>
-          <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">Add Product</h3>
-          <Input
-            className="mt-4"
-            name="name"
-            type="text"
-            placeholder="Name"
-            onChange={handleChange}
-          />
-          <Input
-            className="mt-4"
-            name="price"
-            type="number"
-            placeholder="Price"
-            onChange={handleChange}
-          />
-          <Input
-            className="mt-4"
-            name="quantity"
-            type="number"
-            placeholder="Quantity"
-            onChange={handleChange}
-          />
-          <Input
-            className="mt-4"
-            name="description"
-            type="text"
-            placeholder="Description"
-            onChange={handleChange}
-          />
-          <Input
-            className="mt-4"
-            name="image"
-            type="text"
-            placeholder="Image"
-            onChange={handleChange}
-          />
-
-          <select
-            className="mt-4 w-1/3 mx-auto items-center scroll-m-40 "
-            name="cats"
-            onChange={handleSelect}
-          >
-            {categories?.map((cat) => {
-              return (
-                <option key={cat.id} value={cat.id}>
-                  {cat.name}
-                </option>
-              )
-            })}
-          </select>
-          <div className="flex justify-between">
-            <Button type="submit" className="mt-4">
-              Submit
+      <div className="flex">
+        <div className="w-1/3">
+          <Table className="mt-8 ">
+            <TableCaption>
+              <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight text-black">
+                Users
+              </h3>
+            </TableCaption>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead>Email</TableHead>
+                <TableHead></TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {users?.map((user) => (
+                <TableRow key={user.id}>
+                  <TableCell className="text-left">{user.firstName}</TableCell>
+                  <TableCell className="text-left">{user.email}</TableCell>
+                  <TableCell>
+                    <AlertDialog>
+                      {/* <AlertDialogTrigger>
+                        <TableCell className="text-left">
+                          <EditDialog user={user} />
+                        </TableCell>
+                      </AlertDialogTrigger> */}
+                      <AlertDialogTrigger>
+                        <Button variant="destructive" className="rounded-full">
+                          Delete
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            This action cannot be undone. This will permanently delete
+                            <b> {user.firstName} </b>
+                            account and remove user data from servers.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel className="rounded-full">Cancel</AlertDialogCancel>
+                          <AlertDialogAction className="rounded-full">Continue</AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+        <div className="w-1/3">
+          <Form className="mt-20 w-1/2 mx-auto" onSubmit={handlCategorySubmit}>
+            <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">Add Category</h3>
+            <Input
+              className="mt-4 rounded-full"
+              name="name"
+              type="text"
+              placeholder="Category Name"
+              onChange={handleAddCategoryChange}
+            />
+            <Button type="submit" className="mt-4 rounded-full">
+              Add Category
             </Button>
-            <Button variant="outline" type="reset" className="mt-4">
-              Reset
-            </Button>
-          </div>
-        </Form>
+          </Form>
+        </div>
+        <div className="w-1/3">
+          <Form className="mt-20 w-1/2 mx-auto" onSubmit={handleSubmit}>
+            <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">Add Product</h3>
+            <Input
+              className="mt-4 rounded-full"
+              name="name"
+              type="text"
+              placeholder="Name"
+              onChange={handleChange}
+            />
+            <Input
+              className="mt-4 rounded-full"
+              name="price"
+              type="number"
+              placeholder="Price"
+              onChange={handleChange}
+            />
+            <Input
+              className="mt-4 rounded-full"
+              name="quantity"
+              type="number"
+              placeholder="Quantity"
+              onChange={handleChange}
+            />
+            <Input
+              className="mt-4 rounded-full"
+              name="description"
+              type="text"
+              placeholder="Description"
+              onChange={handleChange}
+            />
+            <Input
+              className="mt-4 rounded-full"
+              name="image"
+              type="text"
+              placeholder="Image"
+              onChange={handleChange}
+            />
+
+            <select
+              className="mt-4 mx-auto items-center scroll-m-70 rounded-full"
+              name="cats"
+              onChange={handleSelect}
+            >
+              {categories?.map((cat) => {
+                return (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.name}
+                  </option>
+                )
+              })}
+            </select>
+            <div className="flex rounded justify-between">
+              <Button type="submit" className="mt-4 rounded-full">
+                Submit
+              </Button>
+              <Button variant="outline" type="reset" className="mt-4 rounded-full">
+                Reset
+              </Button>
+            </div>
+          </Form>
+        </div>
       </div>
+
       <div>
         <Table>
           <TableCaption className="scroll-m-20 text-4x1 my-10 font-semibold tracking-tight">
@@ -266,7 +281,9 @@ export function Dashboard() {
                 <TableCell className="text-left">
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
-                      <Button variant={"destructive"}>X</Button>
+                      <Button variant={"destructive"} className="rounded-full">
+                        X
+                      </Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                       <AlertDialogHeader>
@@ -279,8 +296,11 @@ export function Dashboard() {
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction onClick={() => handleDeleteProduct(product.id)}>
+                        <AlertDialogCancel className="rounded-full">Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                          className="rounded-full"
+                          onClick={() => handleDeleteProduct(product.id)}
+                        >
                           Continue
                         </AlertDialogAction>
                       </AlertDialogFooter>
