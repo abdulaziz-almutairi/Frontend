@@ -1,38 +1,29 @@
-import React from "react"
-import Autoplay from "embla-carousel-autoplay"
-
-import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel"
+import { Button } from "./ui/button"
 
 export function Hero() {
-  const plugin = React.useRef(Autoplay({ delay: 2000, stopOnInteraction: true }))
   return (
     <>
-      <main>
-        <Carousel
-          plugins={[plugin.current]}
-          className="-ml-2 md:-ml-4"
-          onMouseEnter={plugin.current.stop}
-          onMouseLeave={plugin.current.reset}
-        >
-          <CarouselContent className="-ml-2 md:-ml-4">
-            <CarouselItem>
-              <img src="https://media.extra.com/i/aurora/iPadair6_availa_HS_E" alt="Ipad air" />
-            </CarouselItem>
-            <CarouselItem>
-              <img
-                src="https://media.extra.com/i/aurora/Apple_Watch_Campaign_HS_E"
-                alt="Apple Watch"
-              />
-            </CarouselItem>
-            <CarouselItem>
-              <img
-                src="https://media.extra.com/i/aurora/Huawei_MateBook_XPro_Soon_HS_E"
-                alt="Huawei MateBook XPro"
-              />
-            </CarouselItem>
-          </CarouselContent>
-        </Carousel>
-      </main>
+      <section className="bg-gray-100 py-12 md:py-24">
+        <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div className="position:relative; w-100%; h-100%; padding-bottom:56.410%">
+            <iframe
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              src="https://streamable.com/e/69e5hr?autoplay=1"
+              className="w-full aspect-video"
+              allowFullScreen
+            ></iframe>
+          </div>
+          <div className="space-y-4">
+            <h1 className="text-4xl font-bold">Discover the Latest Electronics</h1>
+            <p className="text-gray-600">
+              Shop our wide selection of electronics and accessories for all your needs.
+            </p>
+            <Button size="lg" variant="outline">
+              Shop Now
+            </Button>
+          </div>
+        </div>
+      </section>
     </>
   )
 }

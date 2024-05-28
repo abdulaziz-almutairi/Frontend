@@ -7,6 +7,9 @@ import { reshapeUser } from "@/lib/utils"
 
 export function PrivateRoute({ children }: { children: ReactElement }) {
   const token = localStorage.getItem("token") || ""
+
+  if (!token) return <Navigate to="/" />
+
   const decodedToken = jwt_decode(token)
   const decodedUser = reshapeUser(decodedToken)
 

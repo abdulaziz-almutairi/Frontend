@@ -1,65 +1,58 @@
 import * as React from "react"
-import { Link } from "react-router-dom"
+import { Form, Link } from "react-router-dom"
 
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList
-} from "@/components/ui/navigation-menu"
-import { Cart } from "./cart"
+import { Cart } from "@/components/cart"
 import { GlobalContext } from "@/App"
 import { ROLE } from "@/types"
+import { Button } from "./ui/button"
 
 export function Navbar() {
   const context = React.useContext(GlobalContext)
   if (!context) throw Error("Context is missing")
-  const { state } = context
+  const { state, handleRemoveUser } = context
 
+  const handleLogout = () => {
+    if (typeof window !== undefined) {
+      window.location.reload()
+    }
+
+    localStorage.removeItem("token")
+    localStorage.removeItem("user")
+
+    handleRemoveUser()
+  }
   return (
     <>
-      <div className="flex justify-center h-24 bg-gray-800">
-        <NavigationMenu className="flex w-full">
-          {/* <img src="https://dqov5rvavbmnl.cloudfront.net/images/logos/37/logo2-w.png?t=1700451423" /> */}
-          <NavigationMenuList className="flex gap-4">
-            <NavigationMenuItem>
-              <Link to="/">
-                <NavigationMenuLink className=" text-slate-50">Home</NavigationMenuLink>
+      <div className="flex flex-col">
+        <header className="bg-gray-900 text-white py-4 px-6 md:px-12">
+          <div className="container mx-auto flex items-center justify-between">
+            <Link className="text-2xl font-bold" to="/">
+              ElectroTech
+            </Link>
+            <nav className="hidden md:flex items-center space-x-6">
+              <Link className="hover:text-gray-300" to="/">
+                Home
               </Link>
-            </NavigationMenuItem>
-            {!state.user && (
-              <NavigationMenuItem>
-                <Link to="/account#login">
-                  <NavigationMenuLink className=" text-slate-50">Login</NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-            )}
-            {!state.user && (
-              <NavigationMenuItem>
-                <Link to="/account#signup">
-                  <NavigationMenuLink className=" text-slate-50">Signup</NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-            )}
-            {state.user?.role === ROLE.Admin && (
-              <NavigationMenuItem>
-                <Link to="/dashboard">
-                  <NavigationMenuLink className=" text-slate-50">Dashboard</NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-            )}
-            <NavigationMenuItem>
-              <Link to="/about-us">
-                <NavigationMenuLink className=" text-slate-50">About us</NavigationMenuLink>
+              {!state.user && <Link to="/account#login">Login</Link>}
+              {!state.user && <Link to="/account#signup">Signup</Link>}
+              {state.user?.role === ROLE.Admin && <Link to="/dashboard">Dashboard</Link>}
+              {state.user && (
+                <Form onSubmit={handleLogout}>
+                  <Button type="submit">Logout</Button>
+                </Form>
+              )}
+              <Link className="hover:text-gray-300" to="/about-us">
+                About
               </Link>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuLink className=" text-slate-50">
-                <Cart />
-              </NavigationMenuLink>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
+              <Link className="hover:text-gray-300" to="/Contact">
+                Contact
+              </Link>
+            </nav>
+            <div className="flex items-center space-x-4">
+              <Cart />
+            </div>
+          </div>
+        </header>
       </div>
     </>
   )
