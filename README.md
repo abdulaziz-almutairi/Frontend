@@ -32,7 +32,7 @@ Tech Stack: React, TypeScript. Styling: Tailwind, MUI, or CSS/SASS
 **Functionalities for an Admin:**
 
 - [x] list all users, delete or block a user.
-- list all orders
+- [x] list all orders
 - [x] Add a new category, update info of a category, remove a category
 
 **Form Validation:**
